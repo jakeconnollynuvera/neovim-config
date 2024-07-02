@@ -11,7 +11,8 @@ return {
   },
   cmd = 'Neotree',
   keys = {
-    { '\\', ':Neotree reveal<CR>', { desc = 'NeoTree reveal' } },
+    vim.keymap.set('n', '<leader>ng', ':Neotree show git_status left toggle<CR>', { desc = 'NeoTree git_status' }),
+    vim.keymap.set('n', '<leader>nf', ':Neotree show filesystem left toggle<CR>', { desc = 'NeoTree filesystem' }),
   },
   opts = {
     filesystem = {
