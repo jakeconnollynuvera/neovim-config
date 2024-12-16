@@ -237,7 +237,7 @@ require('lazy').setup({
   -- NOTE: Plugins can be added with a link (or for a github repo: 'owner/repo' link).
   'tpope/vim-sleuth', -- Detect tabstop and shiftwidth automatically
 
-  'mortepau/codicons.nvim',
+  -- 'mortepau/codicons.nvim',
   -- NOTE: Plugins can also be added by using a table,
   -- with the first argument being the link and the following
   -- keys can be used to configure plugin behavior/loading/etc.
@@ -598,7 +598,7 @@ require('lazy').setup({
         -- pylyzer = {},
         -- pyright = {},
         -- pylsp = {},
-        rust_analyzer = {},
+        -- rust_analyzer = {},
         -- lemminx = {},
         -- jsonls = {},
         -- tsserver = {},
@@ -658,7 +658,11 @@ require('lazy').setup({
       }
     end,
   },
-
+  {
+    'mrcjkb/rustaceanvim',
+    version = '^5', -- Recommended
+    lazy = false, -- This plugin is already lazy
+  },
   { -- Autoformat
     'stevearc/conform.nvim',
     lazy = false,
@@ -814,26 +818,26 @@ require('lazy').setup({
     -- If you want to see what colorschemes are already installed, you can use `:Telescope colorscheme`.
     'folke/tokyonight.nvim',
     priority = 1000, -- Make sure to load this before all the other start plugins.
-    -- init = function()
-    --   -- Load the colorscheme here.
-    --   -- Like many other themes, this one has different styles, and you could load
-    --   -- any other, such as 'tokyonight-storm', 'tokyonight-moon', or 'tokyonight-day'.
-    --   vim.cmd.colorscheme 'tokyonight-storm'
-    --
-    --   -- You can configure highlights by doing something like:
-    --   vim.cmd.hi 'Comment gui=none'
-    -- end,
+    init = function()
+      -- Load the colorscheme here.
+      -- Like many other themes, this one has different styles, and you could load
+      -- any other, such as 'tokyonight-storm', 'tokyonight-moon', or 'tokyonight-day'.
+      vim.cmd.colorscheme 'tokyonight-storm'
+
+      -- You can configure highlights by doing something like:
+      vim.cmd.hi 'Comment gui=none'
+    end,
   },
 
   -- Additional colorschemes
   { 'rafamadriz/neon', priority = 1000 },
   {
     'Mofiqul/vscode.nvim',
-    priority = 1000,
-    init = function()
-      vim.cmd.colorscheme 'vscode'
-      vim.cmd.hi 'Comment gui=none'
-    end,
+    -- priority = 1000,
+    -- init = function()
+    --   vim.cmd.colorscheme 'vscode'
+    --   vim.cmd.hi 'Comment gui=none'
+    -- end,
   },
   { 'sainnhe/sonokai', priority = 1000 },
   { 'ray-x/aurora', priority = 1000 },
@@ -915,7 +919,7 @@ require('lazy').setup({
     'cbochs/grapple.nvim',
     opts = {
       scope = 'git', -- also try out "git_branch"
-      icons = false, -- setting to "true" requires "nvim-web-devicons"
+      icons = true, -- setting to "true" requires "nvim-web-devicons"
       status = false,
     },
     keys = {

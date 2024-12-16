@@ -52,8 +52,12 @@ return {
         },
       }
       vim.keymap.set('n', '<leader>tn', test.run.run, { desc = 'Test: Run [n]earest test' })
-      -- vim.keymap.set('n', '<leader>tt', test.run.run(vim.fn.expand '%'), { desc = 'Test: Run file' })
-      -- vim.keymap.set('n', '<leader>td', test.run.run { strategy = 'dap' }, { desc = 'Test: [d]ebug' })
+      vim.keymap.set('n', '<leader>tt', function()
+        test.run.run(vim.fn.expand '%')
+      end, { desc = 'Test: Run file' })
+      vim.keymap.set('n', '<leader>td', function()
+        test.run.run { strategy = 'dap' }
+      end, { desc = 'Test: [d]ebug' })
       vim.keymap.set('n', '<leader>ts', test.run.stop, { desc = 'Test: [s]top' })
       vim.keymap.set('n', '<leader>tw', test.watch.watch, { desc = 'Test: [w]atch' })
       vim.keymap.set('n', '<leader>to', test.output.open, { desc = 'Test: [o]utput' })
