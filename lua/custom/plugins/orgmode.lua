@@ -14,6 +14,11 @@ return {
           template = '\n*** %<%Y-%m-%d> %<%A>\n**** %U\n\n%?',
           target = '~/orgfiles/journal/%<%Y-%m>.org',
         },
+        c = {
+          description = 'Code',
+          template = '\n*** %<%Y-%m-%d> %<%A>\n**** %a\n\n%?',
+          target = '~/orgfiles/code_notes/%^{PROMPT}.org',
+        },
       },
     }
     vim.api.nvim_create_autocmd('FileType', {
