@@ -260,6 +260,7 @@ require('lazy').setup({
   -- See `:help gitsigns` to understand what the configuration keys do
   { -- Adds git related signs to the gutter, as well as utilities for managing changes
     'lewis6991/gitsigns.nvim',
+    version = 'v0.9.0',
     opts = {
       signs = {
         add = { text = '+' },
@@ -289,25 +290,45 @@ require('lazy').setup({
   { -- Useful plugin to show you pending keybinds.
     'folke/which-key.nvim',
     event = 'VimEnter', -- Sets the loading event to 'VimEnter'
-    config = function() -- This is the function that runs, AFTER loading
-      require('which-key').setup()
-
-      -- Document existing key chains
-      require('which-key').register {
-        ['<leader>c'] = { name = '[C]ode', _ = 'which_key_ignore' },
-        ['<leader>d'] = { name = '[D]ocument', _ = 'which_key_ignore' },
-        ['<leader>r'] = { name = '[R]ename', _ = 'which_key_ignore' },
-        ['<leader>s'] = { name = '[S]earch', _ = 'which_key_ignore' },
-        ['<leader>w'] = { name = '[W]orkspace', _ = 'which_key_ignore' },
-        ['<leader>t'] = { name = '[T]est', _ = 'which_key_ignore' },
-        ['<leader>h'] = { name = 'Git [H]unk', _ = 'which_key_ignore' },
-        ['<leader>ht'] = { name = '[T]oggle', _ = 'which_key_ignore' },
-      }
-      -- visual mode
-      require('which-key').register({
-        ['<leader>h'] = { 'Git [H]unk' },
-      }, { mode = 'v' })
-    end,
+    keys = {
+      { '<leader>c', group = '[C]ode' },
+      { '<leader>c_', hidden = true },
+      { '<leader>d', group = '[D]ocument' },
+      { '<leader>d_', hidden = true },
+      { '<leader>h', group = 'Git [H]unk' },
+      { '<leader>h_', hidden = true },
+      { '<leader>ht', group = '[T]oggle' },
+      { '<leader>ht_', hidden = true },
+      { '<leader>r', group = '[R]ename' },
+      { '<leader>r_', hidden = true },
+      { '<leader>s', group = '[S]earch' },
+      { '<leader>s_', hidden = true },
+      { '<leader>t', group = '[T]est' },
+      { '<leader>t_', hidden = true },
+      { '<leader>w', group = '[W]orkspace' },
+      { '<leader>w_', hidden = true },
+      { '<leader>h', group = 'Git [H]unk', mode = 'v' },
+      { '<leader>h_', hidden = true, mode = 'v' },
+    },
+    -- config = function() -- This is the function that runs, AFTER loading
+    --   require('which-key').setup()
+    --
+    --   -- Document existing key chains
+    --   require('which-key').register {
+    --     ['<leader>c'] = { name = '[C]ode', _ = 'which_key_ignore' },
+    --     ['<leader>d'] = { name = '[D]ocument', _ = 'which_key_ignore' },
+    --     ['<leader>r'] = { name = '[R]ename', _ = 'which_key_ignore' },
+    --     ['<leader>s'] = { name = '[S]earch', _ = 'which_key_ignore' },
+    --     ['<leader>w'] = { name = '[W]orkspace', _ = 'which_key_ignore' },
+    --     ['<leader>t'] = { name = '[T]est', _ = 'which_key_ignore' },
+    --     ['<leader>h'] = { name = 'Git [H]unk', _ = 'which_key_ignore' },
+    --     ['<leader>ht'] = { name = '[T]oggle', _ = 'which_key_ignore' },
+    --   }
+    --   -- visual mode
+    --   require('which-key').register({
+    --     ['<leader>h'] = { 'Git [H]unk' },
+    --   }, { mode = 'v' })
+    -- end,
   },
 
   -- NOTE: Plugins can specify dependencies.
@@ -593,6 +614,7 @@ require('lazy').setup({
             },
           },
         },
+        black = {},
         rstcheck = {},
         bashls = {},
         -- jedi_language_server = {},
@@ -681,20 +703,20 @@ require('lazy').setup({
     },
     opts = {
       notify_on_error = false,
-      format_on_save = function(bufnr)
-        -- Disable "format_on_save lsp_fallback" for languages that don't
-        -- have a well standardized coding style. You can add additional
-        -- languages here or re-enable it for the disabled ones.
-        local disable_filetypes = { c = true, cpp = true }
-        return {
-          timeout_ms = 500,
-          lsp_fallback = not disable_filetypes[vim.bo[bufnr].filetype],
-        }
-      end,
+      -- format_on_save = function(bufnr)
+      --   -- Disable "format_on_save lsp_fallback" for languages that don't
+      --   -- have a well standardized coding style. You can add additional
+      --   -- languages here or re-enable it for the disabled ones.
+      --   local disable_filetypes = { c = true, cpp = true }
+      --   return {
+      --     timeout_ms = 500,
+      --     lsp_fallback = not disable_filetypes[vim.bo[bufnr].filetype],
+      --   }
+      -- end,
       formatters_by_ft = {
         lua = { 'stylua' },
         -- Conform can also run multiple formatters sequentially
-        -- python = { "isort", "black" },
+        python = { 'black' },
         --
         -- You can use a sub-list to tell conform to run *until* a formatter
         -- is found.
@@ -809,7 +831,7 @@ require('lazy').setup({
           { name = 'nvim_lsp' },
           { name = 'luasnip' },
           { name = 'path' },
-          { name = 'orgmode' },
+          -- { name = 'orgmode' },
         },
       }
     end,
@@ -964,7 +986,7 @@ require('lazy').setup({
   -- { import = 'custom.plugins' },
   require 'custom.plugins.oil',
   require 'custom.plugins.test',
-  require 'custom.plugins.orgmode',
+  -- require 'custom.plugins.orgmode',
 }, {
   ui = {
     -- If you are using a Nerd Font: set icons to an empty table which will use the
