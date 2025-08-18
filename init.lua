@@ -617,6 +617,7 @@ require('lazy').setup({
         black = {},
         rstcheck = {},
         bashls = {},
+        -- prettier = {},
         -- jedi_language_server = {},
         -- ruff = {},
         -- ruff_lsp = {},
@@ -625,7 +626,7 @@ require('lazy').setup({
         -- pylsp = {},
         -- rust_analyzer = {},
         -- lemminx = {},
-        -- jsonls = {},
+        jsonls = {},
         -- tsserver = {},
         -- html = {},
         -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
@@ -670,6 +671,8 @@ require('lazy').setup({
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
       require('mason-lspconfig').setup {
+        ensure_installed = {}, -- explicitly set to an empty table (Kickstart populates installs via mason-tool-installer)
+        automatic_installation = false,
         handlers = {
           function(server_name)
             local server = servers[server_name] or {}
@@ -685,7 +688,7 @@ require('lazy').setup({
   },
   {
     'mrcjkb/rustaceanvim',
-    version = '^5', -- Recommended
+    version = '^6', -- Recommended
     lazy = false, -- This plugin is already lazy
   },
   { -- Autoformat
@@ -717,6 +720,7 @@ require('lazy').setup({
         lua = { 'stylua' },
         -- Conform can also run multiple formatters sequentially
         python = { 'black' },
+        json = { 'jsonls' },
         --
         -- You can use a sub-list to tell conform to run *until* a formatter
         -- is found.

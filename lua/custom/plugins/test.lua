@@ -4,6 +4,7 @@ return {
   { 'nvim-neotest/neotest-python' },
   {
     'nvim-neotest/neotest',
+    version = '5.7.0',
     -- opts = {
     --   adapters = {
     --     'neotest/plenary',
