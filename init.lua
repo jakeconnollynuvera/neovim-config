@@ -212,7 +212,7 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   desc = 'Highlight when yanking (copying) text',
   group = vim.api.nvim_create_augroup('kickstart-highlight-yank', { clear = true }),
   callback = function()
-    vim.highlight.on_yank()
+    vim.hl.on_yank()
   end,
 })
 
@@ -551,6 +551,10 @@ require('lazy').setup({
           --
           -- When you move your cursor, the highlights will be cleared (the second autocommand).
           local client = vim.lsp.get_client_by_id(event.data.client_id)
+          if client.name == 'ruff' then
+            -- Disable hover in favor of Pyright
+            client.server_capabilities.hoverProvider = false
+          end
           if client and client.server_capabilities.documentHighlightProvider then
             local highlight_augroup = vim.api.nvim_create_augroup('kickstart-lsp-highlight', { clear = false })
             vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI' }, {
@@ -605,22 +609,22 @@ require('lazy').setup({
       local servers = {
         clangd = {},
         -- gopls = {},
-        basedpyright = {
-          settings = {
-            python = {
-              analysis = {
-                typeCheckingMode = 'standard',
-              },
-            },
-          },
-        },
+        -- basedpyright = {
+        --   settings = {
+        --     python = {
+        --       analysis = {
+        --         typeCheckingMode = 'standard',
+        --       },
+        --     },
+        --   },
+        -- },
+        ty = {},
+        ruff = {},
         black = {},
         rstcheck = {},
         bashls = {},
         -- prettier = {},
         -- jedi_language_server = {},
-        -- ruff = {},
-        -- ruff_lsp = {},
         -- pylyzer = {},
         -- pyright = {},
         -- pylsp = {},
@@ -720,6 +724,7 @@ require('lazy').setup({
         lua = { 'stylua' },
         -- Conform can also run multiple formatters sequentially
         python = { 'black' },
+        -- python = { 'ruff' },
         json = { 'jsonls' },
         --
         -- You can use a sub-list to tell conform to run *until* a formatter
@@ -874,7 +879,7 @@ require('lazy').setup({
   { 'catppuccin/nvim', name = 'catppuccin', priority = 1000 },
 
   -- Highlight todo, notes, etc in comments
-  { 'folke/todo-comments.nvim', event = 'VimEnter', dependencies = { 'nvim-lua/plenary.nvim' }, opts = { signs = false } },
+  { 'folke/todo-comments.nvim', event = 'VimEnter', dependencies = { 'nvim-lua/plenary.nvim' }, opts = { signs = false , keywords = {ASSUMPTION = {color="#e534eb"}}} },
 
   { -- Collection of various small independent plugins/modules
     'echasnovski/mini.nvim',
@@ -990,6 +995,7 @@ require('lazy').setup({
   -- { import = 'custom.plugins' },
   require 'custom.plugins.oil',
   require 'custom.plugins.test',
+  require 'custom.plugins.markdown',
   -- require 'custom.plugins.orgmode',
 }, {
   ui = {
