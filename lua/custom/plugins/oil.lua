@@ -1,12 +1,6 @@
-return {
-  {
-    'stevearc/oil.nvim',
-    ---@module 'oil'
-    ---@type oil.SetupOpts
-    opts = {},
-    -- Optional dependencies
-    dependencies = { { 'echasnovski/mini.icons', opts = {} } },
-    -- dependencies = { "nvim-tree/nvim-web-devicons" }, -- use if prefer nvim-web-devicons
-  },
-  vim.keymap.set("n", "-", "<CMD>Oil<CR>", { desc = "Open parent directory" }),
+-- oil.lua
+  vim.pack.add{
+     'https://github.com/stevearc/oil.nvim',
 }
+require("oil").setup()
+vim.keymap.set("n", "-", "<CMD>Oil<CR>", { desc = "Open parent directory" })
